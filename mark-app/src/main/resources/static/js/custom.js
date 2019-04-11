@@ -51,38 +51,6 @@ jQuery(document).ready(function(){
         jQuery(this).parents('body').find('.navigations').toggleClass('open_menu');
      });
 
-     $("#userId").focusout(function(){
-         var userName = $("#userId").val();
-       
-         //$.get("../user/get-user/"+userName, function(data, status)
-         $.ajax({
- 			url : "user/get-user/" + userName,
- 			method : 'GET',
- 			dataType : 'json',
- 			success : function(data,status) 	
-        		 { 
- 			
-         	if(status === "success"){
-         		if(data.code === 200){
-         			$("#UserNameExitsOrNot").hide();  
-	       		  $('#submit').prop('disabled', false);
-         	}
-         		if(data.code === 404){
-         			$("#paramError").hide();
-         			$("#tokenError").hide();
-         			$("#UserNameExitsOrNot").show();  
-  	       		  $('#submit').prop('disabled', true);
-  				}
-         			
-         	}else{
-         		$( "#userId" ).removeClass( "alert alert-success").addClass( "alert alert-danger" );
-         	}
-             console.log("Data: " + data.code + "\nStatus: " + status);
-        		 }
-         });
-     });
-     
-     
      $('.dropdown').on('show.bs.dropdown', function(e){
     	//  alert(1);
     	  $(this).find('.dropdown-menu').first().stop(true, true).slideDown(300);

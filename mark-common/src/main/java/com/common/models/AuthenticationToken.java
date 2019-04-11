@@ -30,6 +30,10 @@ public class AuthenticationToken implements Serializable {
 	private boolean isAdminToken;
 	private String deviceToken;
 	
+	public AuthenticationToken() {
+		
+	}
+	
 	public AuthenticationToken(Integer userId, String authToken, boolean isAdminToken, String deviceToken) {
 
 		this.userId = userId;

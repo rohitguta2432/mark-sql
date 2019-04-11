@@ -2,10 +2,8 @@ package com.api.services;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +21,7 @@ import com.api.utils.QueryBuilder;
 import com.api.utils.RoleUtil;
 import com.common.constants.Constants;
 import com.common.models.User;
+
 import lombok.extern.slf4j.Slf4j;
 
 
