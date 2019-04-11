@@ -1,0 +1,138 @@
+<div th:fragment="customCss">
+	<link rel="stylesheet"
+		href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+		<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+
+		
+</div>
+
+<div th:fragment="content">
+	<div class="titles_strip">
+		<div class="col-md-12 cols">
+			<div class="page-title">
+				<h2 id="userDetails" th:text="${title+' Details'}"></h2>
+				<div th:if="${msg}" th:text="${msg}" class="alert alert-success" id="success-alert">
+					<strong> <span th:text="${msg}"></span></strong>
+				</div>
+			</div>
+			<div class="plus_icon">
+				<a th:href="@{/user/create}"><i class="fas fa-plus"></i></a>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="table_parent">
+				<div class="table-responsive">
+					<table id="data-table"
+						class="table table-striped table-bordered table-hover settings">
+						<thead>
+							<th class="sm-width">Authorities</th>
+							<th class="sm-width">UserName</th>
+							<th class="nameField sm-width">Name</th>
+							<!-- <th class="sm-width">Address</th> -->
+							<th class="sm-width" sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN')">Company</th>
+							<th class="sm-width">Head</th>
+							<th class="sm-width">Email</th>
+							<th class="sm-width">Mobile</th>
+							<!-- <th class="sm-width">Status</th> -->
+							<th class="xs-width">Action</th>
+						</thead>
+						<tbody>
+							<tr th:if="${users != null }" th:each="user,iterator : ${users}">
+								<td><span th:if="${user.authorities != null }" id="auth"
+									th:text="${user.authorities == 'ROLE_ADMIN' ? 'Admin' : user.authorities == 'ROLE_FLEET_MANAGER' ? 'Fleet Manager' : 'Driver' }"></span></td>
+								<td><span th:if="${user.username != null }"
+									th:text="${user.username}"></span></td>
+								<td><span th:if="${user.fullName != null }"
+									th:text="${user.fullName}"></span></td>
+								<!-- <td><span th:if="${user.address != null }"
+									th:text="${user.address.fullAddress}"> </span></td> -->
+								<td sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN')"><span th:if="${user.companyName != null }"
+									th:text="${user.companyName}"> </span></td>	
+								<td><span th:if="${user.parentName != null }"
+									th:text="${user.parentName}"></span></td>	
+								<td>
+									<a th:if="${user.email != null }" th:href="${'mailto:'+user.email}" th:text="${user.email}" ></a></td>
+								<td><span th:if="${user.phone != null }"
+									th:text="${user.phone}"></span></td>
+							<!-- 	<td th:if="${user.status== 1 }" class="text-center"
+									style="color: green;"><span>&nbsp;<i
+										class="fa fa-check"></i></span></td> -->
+							<!-- 	<td th:if="${user.status== 0 }" class="text-center"
+									style="color: red;"><span>&nbsp;<i
+										class="fa fa-remove"></i></span></td> -->
+								<!-- <td><a th:if="${user.id != null }"
+									th:href="@{/user/} + ${user.id}"> <i class="fa fa-edit"></i></a>
+								</td> -->
+								<!-- <td><a> <i class="fa fa-edit"></i></a> -->
+								<td class="dropdown mange_tab text-center">
+									<p data-toggle="dropdown" id="menu1" class="dropdown-toggle">
+										Manage <i class="fas fa-angle-down"></i>
+									</p>
+
+									<div class="dropdown-menu" role="menu1" aria-labelledby="menu1">
+										<a class="dropdown-item"
+											th:href="@{/user/update/}+${user.id}"> <i
+											class="fas fa-edit"></i> Edit
+										</a> 
+									<!-- 	<a class="dropdown-item" > <i
+											class="fas fa-trash-alt"></i> Delete
+										</a> -->
+										<a  th:if=${user.authorities=='ROLE_ADMIN'}  class="dropdown-item" 
+											th:href="@{/user/userDetails/}+${user.id}+${'?title=FleetManager'}"> <i
+											class="fas fa-edit"></i> FleetManagers
+										</a>
+										
+										<a  th:if=${user.authorities=='ROLE_FLEET_MANAGER'}  class="dropdown-item" 
+											th:href="@{/user/userDetails/}+${user.id}+${'?title=Driver'}"> <i
+											class="fas fa-edit"></i> Drivers
+										</a> 
+										<a  th:if=${user.authorities=='ROLE_DRIVER'}  class="dropdown-item" 
+											th:href="@{/user/getById/}+${user.id}"> <i
+											class="fas fa-edit"></i> Driver Profile
+										</a> 
+									</div>
+
+								</td>
+							
+							</tr>
+						<tbody>
+					</table>
+					<div class="clearfix"></div>
+
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div th:fragment="customJs">
+	
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+				<script th:src="@{/./js/moment.js}"></script>
+		<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+		
+	<script type="text/javascript" charset="utf8"
+		src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>	
+	<!-- <script th:src="@{/./js/moment.js}"></script>
+	<script th:src="@{/./js/user.js}"></script> -->
+	
+<script>
+	$(function() {
+	var table = $("#data-table").dataTable({
+			"order" : [],
+			"deferRender" : true,
+			"columnDefs" : [ {
+				"targets" :6,
+				"orderable" : true,
+			} ]
+		});
+	});
+</script>	
+</div>

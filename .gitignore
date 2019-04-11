@@ -1,0 +1,13 @@
+*/target/**
+*/.settings/**
+.settings/**
+*/.classpath
+.classpath
+.project
+*/*/*.iml
+/.idea/
+/bin/
+.DS_Store
+/*/web.xml
+/.metadata/
+

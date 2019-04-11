@@ -1,0 +1,239 @@
+<div th:fragment="header">
+	<header>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-3 col-sm-3 logo_col">
+					<div class="logo_area">
+						<a th:href="@{/dashboard}"> <img class="ms-auto"
+							th:src="@{/./images/header_logo.png}" alt="ERP">
+						</a>
+					</div>
+				</div>
+				<div class="col content_col">
+					<div class="header_content">
+						<p>Welcome <span th:text="${session.companyName}"></span></p>
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-6 profileInfo_col">
+					<div class="profile_info_and_search">
+						<div class="head-search">
+							<form accept-charset="UTF-8" role="form">
+								<fieldset>
+									<div class="form-group">
+										<input class="form-control" placeholder="Search..."
+											name="Search" type="text">
+									</div>
+								</fieldset>
+							</form>
+						</div>
+						<div class="head-user">
+
+							<div class="dropdown user-option">
+
+								<a href="javascript:void(0)"
+									class="dropdown-toggle btn btn-user" data-toggle="dropdown">
+									<span id="user-name" th:text="'Hello, ' +${session.user}"
+									th:unless="${session == null}"></span>
+									<div class="profile_display">
+										<img
+											th:src="${session.hashedUserImage}!='' ? 'https://s3.ap-south-1.amazonaws.com/novusaware-test/users/profile/'+${session.hashedUserImage}: @{/./images/user-placeholder.jpg}">
+									</div> <!-- <img th:src="@{/./images/user-pic.png}"> -->
+
+								</a>
+
+								<div class="dropdown-menu user-opt-list">
+									<ul class="opt-list">
+
+										<li sec:authorize="hasAnyRole('ROLE_ADMIN')"
+										 class="user-opt" id="myProfile"><a data-toggle="modal" data-target="#myAcModal"><i class="fas fa-user"></i> My Account </a></li>
+										<li class="user-opt"><a th:href="@{/logout}"><i class="fas fa-lock"></i> Logout
+										</a></li>
+									</ul>
+								</div>
+								<div class="mobile_menu_hamburgar">
+									<i class="fas fa-bars"></i>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<!-- Modal -->
+
+	 <div class="modal fade" id="myAcModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">My Account</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				
+				<div class="modal-body">
+					<div class="csv_upload_form">
+							<form class="client-form" action="#" th:action="@{/user/updateUserProfile}"
+							th:object="${user}" method="POST" enctype="multipart/form-data">
+
+						<div class="col-sm-6 mb-3 float-left">
+							<div class="form-group">
+								<div class="float-left w-100">
+									<label class="control-label" for="date">First Name<span style="color: red">*</span></label>
+									<input type="text" class="form-control" id="profileFirstName" name="firstName" value="" placeholder="First Name..." required="required">
+
+								</div>
+							</div>
+						</div>
+				
+						<div class="col-sm-6 mb-3 float-left">
+							<div class="form-group">
+								<div class="float-left w-100">
+									<label class="control-label" for="date">Last Name</label>
+
+									<input type="text" class="form-control" id="profileLastName" name="lastName" value="" placeholder="Last Name...">
+
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-sm-6 mb-3 float-left">
+							<div class="form-group">
+								<div class="float-left w-100">
+									<label class="control-label" for="date">DOB<span style="color: red">*</span></label>
+									<input type="text"  class="form-control" id="profileDob" name="dob" value="" placeholder="date of birth" required="required">
+
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-sm-6 mb-3 float-left">
+							<div class="form-group">
+								<div class="float-left w-100">
+									<label class="control-label" for="date">Experience<span style="color: red">*</span></label>
+									<input required="required" type="text" class="form-control" id="profileYearExperience" name="yearExperience" value="" placeholder="Total Experience" onkeyup="this.value = this.value.replace(/[^0-9.]/, '')" maxlength="2">
+
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-sm-6 mb-3 float-left">
+							<div class="form-group">
+								<div class="float-left w-100">
+									<label class="control-label" for="date">Job Type</label> <select class="form-control" id="profileAvailability" name="availability">
+										<option th:selected="${user?.availability == 'Part Time'}">Part
+													Time</option>
+												<option th:selected="${user?.availability == 'Full Time'}">Full
+													Time</option>
+												<option th:selected="${user?.availability == 'Hourly'}">Hourly</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-sm-6 mb-3 float-left">
+							<div class=" form-group w-100">
+								<label class="control-label" for="date">Profile Image</label> <input class="form-control" type="file" id="userProfileFileUploadimg" name="userProfileFileUpload" placeholder="Profile Image" accept=".png, .jpg, .jpeg">
+
+							</div>
+						</div>
+						<input type="hidden" class="form-control" id="profileEmail"
+												name="email" value="">
+												<input type="hidden" class="form-control" id="profilePhone"
+												name="address.phone" value="">
+												<input type="hidden" class="form-control" id="profileCity"
+												name="address.city" value="">
+												<input type="hidden" class="form-control" id="profileState"
+												name="address.state" value="">
+												<input type="hidden" class="form-control" id="profilePincode"
+												name="address.pincode" value="">
+												<input type="hidden" class="form-control" id="profileCountry"
+												name="address.country" value="">
+												<input type="hidden" class="form-control" id="profileFullAddress"
+												name="address.fullAddress" value="">
+												<input type="hidden" class="form-control" id="profileEmployeeId"
+												name="employeeId" value="">
+									<div class="modal-footer">			
+						<button type="submit" class="btn btn-primary"
+						id="updateProfile"><i class="fab fa-telegram-plane"></i> update</button>
+						</div>
+				</form>
+					</div>
+					
+				</div>
+			
+			</div>
+		</div>
+	</div> 
+</div>
+
+<div th:fragment="footer">
+	<footer class="mt-4">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="footer_innerContent">
+					<p class="text-center">Copyright 2018 ERP APP LTD</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+</div>
+
+<div th:fragment="sideBar">
+	<div id="mainMenu" class="navigations mCustomScrollbar content">
+		<div class="admin_info text-center">
+			<div class="img_and_name">
+				<span class="rounded-circle"><img
+					th:src="@{/./images/user-pic.png}"></span>
+				<p>Admin Name</p>
+			</div>
+		</div>
+
+		<div class="searchBar">
+			<input placeholder="Search..." type="text">
+		</div>
+
+		<ul class="nav">
+			<li th:class="${dashboardActive != null ? 'active' : ''}"><a th:href="@{/header1}"> <i
+					class="fas fa-home"></i>
+					<p>Header1</p>
+			</a></li>
+			<li th:class="${tripListActive != null ? 'active' : ''}"><a th:href="@{/header2}">
+			 <i class="fas fa-eye"></i>
+					<p>Header2</p>
+			</a></li>
+
+			<li th:class="${alarmListActive != null ? 'active' : ''}"><a href="javascript:void(0);" th:href="@{/header3}"> <i
+					class="far fa-bell"></i>
+					<p>Header3</p>
+			</a></li>
+			<li  th:class="${assignTruckListActive != null ? 'active' : ''}"><a th:href="@{/header4}"> <i class="fas fa-truck"></i>
+					<p>Header4</p>
+			</a></li>
+
+			<li sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN')"  th:class="${operations != null ? 'active hasSubmenu' : 'hasSubmenu'}"><span id="drop1"
+				class="toggleIcon dropdown-toggle"></span> <a
+				href="javascript:void(0);"> <i class="far fa-address-book"></i>
+					<p>Header5</p>
+			</a>
+				<ul  class="dropdown-menu" role="menu" aria-labelledby="drop1">
+
+					<li role="presentation" th:class="${csvUploadListActive != null ? 'active' : ''}"><a role="menuitem" tabindex="-1"
+						th:href="@{/header5}"><i class="fas fa-upload"> </i>
+						<p>Header5.1</p></a></li>
+
+					<li role="presentation" th:class="${deviceAssignListActive != null ? 'active' : ''}"><a role="menuitem" tabindex="-1"
+						th:href="@{/header5}"><i
+							class="far fa-list-alt"> </i>
+						<p>Header5.2</p></a></li>
+				</ul></li>
+		</ul>
+	</div>
+</div>
+

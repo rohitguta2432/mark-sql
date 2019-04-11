@@ -1,0 +1,26 @@
+.head-search {
+	display: none;
+}
+
+div.card {
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.03), 0 6px 20px 0 rgba(0, 0, 0, 0.12);
+    text-align: left;
+}
+
+div.card-body {
+   margin : 1%;
+}
+
+.error{
+color: red;
+    position: absolute;
+    font-size: 12px;
+    bottom: -16px;
+    left: 15px;
+    }
+    
+.form_fields form inupt[type='text'], .form_fields form inupt[type='password'], .form_fields form inupt[type='tel'], .form_fields form inupt[type='number'], .form_fields form inupt[type='email'], .form_fields form .form-control, .form-group input, .form_fields form select, .csv_upload_form form .form-group select, .csv_upload_form form .form-group textarea {
+margin:0 0 0;
+}
+

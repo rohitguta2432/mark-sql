@@ -1,0 +1,102 @@
+<div th:fragment="header">
+
+	<header>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-sm-3 logo_col">
+          <div class="logo_area">
+            <a href="javascript:void(0);">
+              <img class="ms-auto" src="images/header_logo.png" alt="">
+            </a>
+          </div>
+        </div>
+        <div class="col content_col">
+          <div class="header_content">
+            <p>Welcome Instant Transport Solutions</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6 profileInfo_col">
+          <div class="profile_info_and_search">
+            <div class="head-search">
+              <form accept-charset="UTF-8" role="form">
+                <fieldset>
+                  <div class="form-group">
+                    <input class="form-control" placeholder="Search..." name="Search" type="text">
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+            <div class="head-user">
+
+              <div class="dropdown notification-drop">
+                <a href="javascript:void(0)" class="dropdown-toggle btn btn-notification" data-toggle="dropdown">
+                  <img src="images/bell-icon.png">
+                  <span id="notification_count">0</span>
+                </a>
+
+                <div class="dropdown-menu">
+                  <div class="notifications-listing">
+
+                    <a class="user-notice" href="#">
+                      <div class="user-notice-info">
+                        <div class="notice-pic">
+                          <div class="notificationImage" style="background: url('images/user-pic.png');"></div>
+                        </div>
+                        <div class="notice-info">
+                          <p>There is a testing Notification for you.</p>
+                          <span class="time">June 08, 6:48 PM </span>
+                        </div>
+                      </div>
+                    </a>
+
+                    <a class="user-notice" href="#">
+                      <div class="user-notice-info">
+                        <div class="notice-pic">
+                          <div class="notificationImage" style="background: url('images/user-pic.png');"></div>
+                        </div>
+                        <div class="notice-info">
+                          <p>There is a testing Notification for you.</p>
+                          <span class="time">June 08, 6:48 PM </span>
+                        </div>
+                      </div>
+                    </a>
+
+                  </div>
+
+                  <a class="notice-view-all" href="#">View all</a>
+
+                </div>
+
+              </div>
+
+              <div class="dropdown user-option">
+
+                <a href="javascript:void(0)" class="dropdown-toggle btn btn-user" data-toggle="dropdown">
+                  <span id="user-name">Hello, Admin</span>
+                  <img src="images/user-pic.png">
+                </a>
+
+                <div class="dropdown-menu user-opt-list">
+                  <ul class="opt-list">
+                    <li class="user-opt">
+                      <a href="#"> My Account </a>
+                    </li>
+                    <li class="user-opt">
+                      <a href="#"> My Wishlist </a>
+                    </li>
+                    <li class="user-opt">
+                      <a href="#"> My Routes </a>
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+</div>

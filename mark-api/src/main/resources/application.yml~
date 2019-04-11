@@ -1,0 +1,67 @@
+server:
+   #address: localhost
+   port: 8089
+   servlet:
+       context-path: /mark-api/ # Context path of the application.
+       display-name: MarkApi # Display name of the application.
+
+#Local DB
+mongo:
+    db:
+     name: mark
+     host: localhost
+     port: 27017
+     u:
+        key: 
+     p:
+        value: 
+
+mark:
+   token:
+      header: X-Auth-Token
+      secret: prsm! 
+      expiration: 72000
+      inactivity:
+              time: 72000
+   auth:
+     header: X-AUTH-HEADER
+   secret:
+       key: admin
+   media:
+      location: /as/a/s
+      url: /abc/xyz
+      temp : /tmp/	    
+
+#Multipart      
+spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB 
+      max-request-size: 100MB    
+      #location: /tmp/   
+      
+management:
+       endpoints:
+             enabled-by-default: true
+             web:
+               base-path: /actuator
+               path-mapping.health: health 
+               exposure:
+                    include: "*"
+                    exclude: env
+             beans:
+                 id: springbeans
+                 sensitive: false
+                 enabled: true 
+       endpoint:
+           health:
+               enabled: true
+               show-details: ALWAYS
+           shutdown:
+               enabled: true
+           info:
+              app: 
+                name: Hitech Rest-API Application
+                description: This application provides IOT Data for large Transports Companies
+                version: 1.0.0
+              enabled: true

@@ -1,0 +1,223 @@
+<div th:fragment="customCss"></div>
+
+<div th:fragment="content">
+
+	<div class="titles_strip">
+		<div class="col-md-12 cols">
+			<div class="page-title">
+				<h2><span th:text="${title}"></span> Company</h2>
+			</div>
+		</div>
+	</div>
+
+	<div class=" csv_upload_form">
+		<div class="row card">
+
+			<form action="#" th:action="@{/company/save}" th:object="${company}"
+				method="POST">
+				<div class="row">
+					<div class='col-sm-12 col-sm-offset-2 text-left'>
+						<h5 class="title_style mb-3">Basic Info</h5>
+					</div>
+				</div>
+
+				<div class="row mb-3">
+					<div class="col-sm-4 mb-3">
+						<div class="form-group">
+							<div class="float-left w-100">
+								<label for="exampleInputText">Company Name</label><span
+									style="color: red">*</span> <input type="hidden"
+									class="form-control" id="id" name="id"
+									th:value="${company?.id}"> <input type="text"
+									class="form-control" id="name" name="name"
+									th:value="${company?.name}" placeholder="Enter company name..." required="required">
+
+						</div>
+					</div>
+					</div>
+
+					<div class="col-sm-4 mb-3">
+						<div class="form-group">
+							<div class="float-left w-100">
+								<label for="exampleInputText">Type</label> <input type="text"
+									class="form-control" id="type" name="type"
+									th:value="${company?.type}" placeholder="Enter Company type...">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-4 mb-3">
+						<div class="form-group">
+							<div class="float-left w-100">
+							<label for="exampleInputText">CRN</label><span style="color:red">*</span>
+								<input type="text" class="form-control" id="crn" name="crn"
+									th:value="${company?.crn}" placeholder="Enter company registration no"  required="required">
+
+						</div>
+						<span class="error" id="CRNnoExitsOrNot" style="display: none;">CRN
+							no. Already Exits</span>
+					</div>
+					</div>
+
+					<div class="col-sm-4 mb-3">
+						<div class="form-group">
+							<div class="float-left w-100">
+								<label for="exampleInputText">Description</label>
+								<textarea class="form-control" id="description"
+									name="description" placeholder="Enter Company Description..."
+									th:text="${company?.address?.fullAddress}" rows="3"></textarea>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="row">
+					<div class='col-sm-12 col-sm-offset-2 text-left'>
+						<h5 class="title_style mb-3">Contacts</h5>
+					</div>
+				</div>
+
+				<div class="row mb-3">
+					<div class="col-sm-4 mb-3">
+						<div class="form-group">
+							<div class="float-left w-100">
+								<label for="exampleInputText">Landline Phone No</label> <input
+									type="text" class="form-control" id="telephoneNo"
+									name="contacts.telephoneNo"
+									th:value="${company?.contacts?.telephoneNo}"
+									placeholder="Enter Landline phone No..."
+									onchange="LandLine(telephoneNo.value);"
+									onkeyup="this.value = this.value.replace(/[^0-9]/, '')"
+									maxlength="10"> <span id="error4" class="error"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-4 mb-3">
+						<div class="form-group">
+							<div class="float-left w-100">
+								<label for="exampleInputText">Mobile No</label> <input
+									type="text" class="form-control" id="mobileNo"
+									name="contacts.mobileNo"
+									th:value="${company?.contacts?.mobileNo}"
+									placeholder="Enter Mobile No..."
+									onchange="CheckIndianNumber(mobileNo.value)"
+									onkeyup="this.value = this.value.replace(/[^0-9]/, '')"
+									maxlength="10"> <span id="error1" class="error"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-4 mb-3">
+						<div class="form-group">
+							<div class="float-left w-100">
+								<label for="exampleInputText">Email</label><span
+									style="color: red">*</span> <input type="text"
+									class="form-control" id="email" name="contacts.email"
+									th:value="${company?.contacts?.email}"
+									placeholder="Enter Email..."  onchange="check();" required="required">
+									<span id="error" class="error"></span>
+
+						</div>
+					</div>
+					</div>
+
+					<div class="col-sm-4 mb-3">
+						<div class="form-group">
+							<div class="float-left w-100">
+							<label for="exampleInputText">Website</label><span style="color:red">*</span>
+								<input type="text" class="form-control" id="url"
+									name="url"
+									th:value="${company?.url}"
+									placeholder="Enter website url" onchange="is_url(url.value)"  required="required">
+									<span id="error3" class="error"></span>
+
+						</div>
+					</div>
+				</div>
+				</div>
+
+				<div class="row">
+					<div class='col-sm-12 col-sm-offset-2 text-left'>
+						<h5 class="title_style mb-3">Address</h5>
+					</div>
+				</div>
+
+				<div class="row mb-3">
+					<div class="col-sm-4 mb-3">
+						<div class="form-group">
+							<div class="float-left w-100">
+								<label for="exampleInputText">City</label> <input type="text"
+									class="form-control" id="city" name="address.city"
+									th:value="${company?.address?.city}"
+									placeholder="Enter City...">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-4 mb-3">
+						<div class="form-group">
+							<div class="float-left w-100">
+								<label for="exampleFormControlTextarea1">State</label> <input
+									type="text" class="form-control" id="state"
+									name="address.state" th:value="${company?.address?.state}"
+									placeholder="Enter State...">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-4 mb-3">
+						<div class="form-group">
+							<div class="float-left w-100">
+							<label for="exampleInputText">Pincode</label><span style="color:red">*</span>
+								<input type="text" class="form-control" id="pincode"
+									name="address.pincode" th:value="${company?.address?.pincode}" required="required"
+									placeholder="Enter Pincode..." onchange="CheckIndianZipCode(pincode.value);" onkeyup="this.value = this.value.replace(/[^0-9]/, '')" maxlength="6" >
+									<span id="error2" class="error"></span>
+
+						</div>
+					</div>
+					</div>
+
+					<div class="col-sm-4 mb-3">
+						<div class="form-group">
+							<div class="float-left w-100">
+								<label for="exampleFormControlTextarea1">Country</label> <input
+									type="text" class="form-control" id="country"
+									name="address.country" th:value="${company?.address?.country}"
+									placeholder="Country" />
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-4 mb-3">
+						<div class="form-group">
+							<div class="float-left w-100">
+								<label for="exampleFormControlTextarea1">Full Address</label>
+								<textarea class="form-control" id="address"
+									name="address.fullAddress"
+									placeholder="Enter CompanyFull Address..."
+									th:text="${company?.address?.fullAddress}" rows="3"></textarea>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="mt-3">
+					<div class="submit_btn">
+						<button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+
+</div>
+
+<div th:fragment="customJs">
+	<script th:src="@{/./js/company.js}"> </script>
+
+</div>

@@ -1,0 +1,78 @@
+<div th:fragment="customCss"></div>
+<div th:fragment="content">
+
+	<div class="col-md-8 cols">
+		<div class="date_picker date_picker_assignTrucks">
+			<div class="form-group">
+				<img data-image="" src="images/search_ic.png"
+					class="date_calendar_ic"> <input type="text"
+					placeholder="Search By Date" id="date" data-dtp="dtp_80H6c">
+				<a href="javascript:void(0);" class="assign_trip_btn">Assign
+					Trip <img src="images/assign_trip_plus_icon.png">
+				</a>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="assign_trucks_table mt-3 mb-3">
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th><span> <input type="checkbox"
+									class="form-check-input" value="">
+							</span> Srvcvsff.No</th>
+							<th>Truck Name</th>
+							<th>Driver Name</th>
+							<th>Fleet Manager</th>
+							<th>Route</th>
+							<th>Trip start date</th>
+							<th class="text-center">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><span> <input type="checkbox"
+									class="form-check-input" value="">
+							</span> 1</td>
+							<td>HR38T4817</td>
+							<td>Mohan</td>
+							<td>Ram Singh</td>
+							<td class="dropdown">Pune To Delhi <img
+								src="images/iTooltipIcon.png"> <span
+								data-toggle="dropdown" id="menu1" class="dropdown-toggle">
+									<div class="dropdown-menu" role="menu1" aria-labelledby="menu1">
+										<a class="dropdown-item" href="javascript:void(0);"> <i
+											class="fas fa-map-marker-alt"></i> Driver Location
+										</a>
+									</div>
+							</span>
+							</td>
+							<td>09-07-2017</td>
+							<td class="dropdown mange_tab text-center">Manage <i
+								class="fas fa-angle-down"></i> <span data-toggle="dropdown"
+								id="menu1" class="dropdown-toggle">
+									<div class="dropdown-menu" role="menu1" aria-labelledby="menu1">
+										<a class="dropdown-item" href="javascript:void(0);"> <i
+											class="fas fa-pencil-alt"></i> Edit
+										</a> <a class="dropdown-item" href="javascript:void(0);"> <i
+											class="fas fa-eye"></i> View Trips
+										</a> <a class="dropdown-item" href="javascript:void(0);"> <i
+											class="fas fa-trash-alt"></i> Delete
+										</a>
+									</div>
+							</span>
+							</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div th:fragment="customJs"></div>

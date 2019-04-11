@@ -1,0 +1,53 @@
+spring:
+   thymeleaf:
+        cache: false
+        check-template: true # Check that the template exists before rendering it.
+        check-template-location: true # Check that the templates location exists.
+        enabled: true # Enable MVC Thymeleaf view resolution.
+        prefix: classpath:/templates/ # Prefix that gets prepended to view names when building a URL.
+        suffix: .html # Suffix that gets appended to view names when building a URL.
+   servlet:
+    multipart:
+      max-file-size: 100MB 
+      max-request-size: 100MB         
+                
+server:
+   #address: localhost
+   port: 8080
+   servlet:
+       context-path: /mark-app/ # Context path of the application.
+       display-name: MarkApp # Display name of the application.
+       multipart:
+              max-file-size: 500MB
+              max-request-size: 500MB
+              enabled: true
+       session:
+          timeout: 1800
+
+#Local
+hitech:
+   rest:
+     base:
+       url: http://localhost:8089/mark-api/
+
+media:
+  location: /sdfsd/sdfsd
+  temp : /tmp/
+            
+management:
+       endpoints:
+             enabled-by-default: true
+             web:
+               base-path: /actuator
+               path-mapping.health: health 
+               exposure:
+                    include: "*"
+                    exclude: env
+       endpoint:
+           health:
+               enabled: true
+               show-details: ALWAYS
+           shutdown:
+               enabled: true
+           info:
+              enabled: true

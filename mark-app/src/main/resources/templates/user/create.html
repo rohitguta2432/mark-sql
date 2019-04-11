@@ -1,0 +1,350 @@
+<div th:fragment="customCss">
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+
+</div>
+
+<div th:fragment="content">
+	<div id="wrapper">
+
+		<div class="white-bg page-wrapper header-wrapper">
+			<div class="wrapper wrapper-content">
+
+				<div class="titles_strip">
+					<div class="col-md-12 cols">
+						<div class="page-title">
+							<h2><span th:text="${title}"></span> user information</h2>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="csv_upload_form">
+					<div class="row card">
+						<form class="client-form" action="#" th:action="@{/user/save}"
+							th:object="${user}" method="POST" enctype="multipart/form-data">
+							<div class="row">
+								<div class='col-sm-12 col-sm-offset-2 text-left'>
+									<h5 class="title_style mb-3">Basic Info</h5>
+								</div>
+							</div>
+
+							<div class="row mb-3">
+							
+							<div sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN')"
+									class="col-sm-4 mb-3">
+									<div class="form-group">
+										<div class="float-left w-100">
+											<label class="control-label" for="date">Company<span
+												style="color: red">*</span></label> 
+											<select required class="form-control" id="crn" name="crn">
+												<option th:each="company: ${companies}"
+													th:selected="${user?.crn == company.crn}"
+													th:value="${company.crn}"><span
+														th:text="${company.name}"></span>
+												</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							
+								<div class="col-sm-4 mb-3">
+									<div class="form-group">
+										<div class="float-left w-100">
+											<label class="control-label" for="date">Select User
+												Role</label> 
+										<select th:disabled="${user != null}" class="form-control" id="authorities"
+												name="authorities">
+												<option sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN')"
+													th:selected="${user?.authorities == 'ROLE_ADMIN'}"
+													value="ROLE_ADMIN"><span>ADMIN</span>
+												</option>
+
+												<option sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN')"
+													th:selected="${user?.authorities == 'ROLE_FLEET_MANAGER'}"
+													value="ROLE_FLEET_MANAGER"><span>FLEET
+														MANAGER</span>
+												</option>
+												<option sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN','ROLE_FLEET_MANAGER')"
+													th:selected="${user?.authorities == 'ROLE_DRIVER'}"
+													value="ROLE_DRIVER"><span>DRIVER</span>
+												</option>	
+											</select>
+										</div>
+									</div>
+								</div>
+								
+								<div id = "fleetManagerDiv" ></div>
+
+								<div class="col-sm-4 mb-3">
+									<div class="form-group">
+										<div class="float-left w-100">
+											<label class="control-label" for="date">User Name<span
+												style="color: red">*</span></label>
+											<input type="hidden" class="form-control" id="id" name="id"
+												th:value="${user?.id}">
+											<input type="hidden" class="form-control" id="isAssigned" name="isAssigned"
+												th:value="${user?.assigned}">	
+											<input type="text" th:disabled="${user != null}"
+												class="form-control" id="username1" name="username"
+												th:value="${user?.username}" placeholder="Enter name">
+										</div>
+									</div>
+									<span class="error" id="UserNameExitsOrNot"
+										style="display: none;">User Name Already Exits</span>
+								</div>
+
+								<div class="col-sm-4 mb-3">
+									<div class="form-group">
+										<div class="float-left w-100">
+											<label class="control-label" for="date">Password<span
+												style="color: red">*</span></label>
+											<!-- input class="form-control" type="password" id="password" required="required"
+												name="password" placeholder="Password..." /> -->
+											<input type="password" class="form-control" id="password"
+												name="password" th:value="${user?.password}"
+												placeholder="Password...">
+										</div>
+									</div>
+								</div>
+
+								<div class="col-sm-4 mb-3">
+									<div class="form-group">
+										<div class="float-left w-100">
+											<label class="control-label" for="date">First Name<span
+												style="color: red">*</span></label>
+											<!-- <input class="form-control" type="text" id="firstName" required="required"
+												name="firstName" placeholder="First Name..." /> -->
+											<input type="text" class="form-control" id="firstName"
+												name="firstName" th:value="${user?.firstName}"
+												placeholder="First Name..." required="required">
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-4 mb-3">
+									<div class="form-group">
+										<div class="float-left w-100">
+											<label class="control-label" for="date">Last Name</label>
+											<!-- <input class="form-control" type="text" id="lastName"
+												name="lastName" placeholder="Last Name..." /> -->
+											<input type="text" class="form-control" id="lastName"
+												name="lastName" th:value="${user?.lastName}"
+												placeholder="Last Name...">
+										</div>
+									</div>
+								</div>
+
+
+								<div class="col-sm-4 mb-3">
+									<div class="form-group">
+										<div class="float-left w-100">
+											<label class="control-label" for="date">DOB<span
+												style="color: red">*</span></label>
+											<!-- <input class="form-control" id="dob" required="required"
+												name="dob" placeholder="date of birth" type="text" /> -->
+											<input type="text"   class="form-control" id="dob" name="dob"
+												th:value="${user?.dob}" placeholder="date of birth"
+												required="required">
+										</div>
+									</div>
+								</div>
+
+								<div class="col-sm-4 mb-3">
+									<div class="form-group">
+										<div class="float-left w-100">
+											<label class="control-label" for="date">Experience<span
+												style="color: red">*</span></label>
+											<!-- <input required="required" class="form-control" type="text" id="yearExperience"
+												name="yearExperience" placeholder="Total Experience"  onkeyup="this.value = this.value.replace(/[^0-9.]/, '')" maxlength="2" /> -->
+											<input required="required" type="text" class="form-control"
+												id="yearExperience" name="yearExperience"
+												th:value="${user?.yearExperience}"
+												placeholder="Total Experience"
+												onkeyup="this.value = this.value.replace(/[^0-9.]/, '')"
+												maxlength="2">
+										</div>
+									</div>
+								</div>
+
+								<div class="col-sm-4 mb-3">
+									<div class="form-group">
+										<div class="float-left w-100">
+											<label class="control-label" for="date">Employee ID<span
+												style="color: red">*</span></label>
+											<!-- <input class="form-control" type="text" id="employeeId" required="required"
+												name="employeeId" placeholder="Employee Id" /> -->
+											<input type="text" class="form-control" id="employeeId"
+												name="employeeId" th:value="${user?.employeeId}"
+												placeholder="Employee Id" required="required">
+										</div>
+									</div>
+								</div>
+
+
+
+								<div class="col-sm-4 mb-3">
+									<div class="form-group">
+										<div class="float-left w-100">
+											<label class="control-label" for="date">Job Type</label> <select
+												class="form-control" id="availability" name="availability">
+												<option th:selected="${user?.availability == 'Part Time'}">Part
+													Time</option>
+												<option th:selected="${user?.availability == 'Full Time'}">Full
+													Time</option>
+												<option th:selected="${user?.availability == 'Hourly'}">Hourly</option>
+												<!-- <option 
+											th:value="${user?.availability}" th:text="${user?.availability}"> </option> -->
+											</select>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-sm-4 mb-3">
+									<div class=" form-group w-100">
+										<label class="control-label" for="date">Profile Image</label> <input
+											class="form-control" type="file" id="userProfileFileUpload"
+											name="userProfileFileUpload" placeholder="Profile Image"
+											accept=".png, .jpg, .jpeg">
+
+									</div>
+								</div>
+							</div>
+							<div class="row  mb-3">
+								<div class='col-sm-12 col-sm-offset-2 text-left'>
+									<h5 class="title_style ">Contacts Info</h5>
+								</div>
+							</div>
+							<div class="row  mb-3">
+								<div class="col-sm-4 mb-3">
+									<div class="form-group">
+										<div class="float-left w-100">
+											<label class="control-label" for="date">Email<span
+												style="color: red">*</span></label>
+											
+											<input type="text" class="form-control" 
+													id="email"
+												name="email" th:value="${user?.email}"
+												placeholder="Email..." required="required"
+												> <span id="error" class="error"></span>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-4 mb-3">
+									<div class="form-group">
+										<div class="float-left w-100">
+											<label class="control-label" for="date">Phone</label>
+											<!-- <input class="form-control" type="text" id="phone"
+												name="phone" placeholder="MobileNo..." onchange="CheckIndianNumber(phone.value)" onkeyup="this.value = this.value.replace(/[^0-9]/, '')"  maxlength="10"/> -->
+											<input type="text" class="form-control" id="phone"
+												name="phone" th:value="${user?.phone}"
+												placeholder="MobileNo..."
+												onchange="CheckIndianNumber(phone.value)"
+												onkeyup="this.value = this.value.replace(/[^0-9]/, '')"
+												maxlength="10"> <span id="error1" class="error"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row  mb-3">
+								<div class='col-sm-12 col-sm-offset-2 text-left'>
+									<h5 class="title_style">Address Info</h5>
+								</div>
+							</div>
+							<div class="row  mb-3">
+								<div class="col-sm-4 mb-3">
+									<div class="form-group">
+										<div class="float-left w-100">
+											<label class="control-label" for="date">City</label>
+											<!-- <input class="form-control" type="text" id="city"
+												name="address.city" placeholder="City..." /> -->
+											<input type="text" class="form-control" id="city"
+												name="address.city" th:value="${user?.address?.city}"
+												placeholder="City...">
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-4 mb-3">
+									<div class="form-group">
+										<div class="float-left w-100">
+											<label class="control-label" for="date">State</label>
+											<!-- <input class="form-control" type="text" id="state"
+												name="address.state" placeholder="State..." /> -->
+											<input type="text" class="form-control" id="state"
+												name="address.state" th:value="${user?.address?.state}"
+												placeholder="State...">
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-4 mb-3">
+									<div class="form-group">
+										<div class="float-left w-100">
+											<label class="control-label" for="date">Pincode<span
+												style="color: red">*</span></label>
+											<!-- <input required="required" class="form-control" type="text" id="pincode"  
+												name="address.pincode" placeholder="Pilogoutncode..."  onchange="CheckIndianZipCode(pincode.value);"  onkeyup="this.value = this.value.replace(/[^0-9]/, '')"  maxlength="6" /> -->
+											<input type="text" class="form-control" id="pincode"
+												name="address.pincode" th:value="${user?.address?.pincode}"
+												placeholder="Pincode..."
+												onchange="CheckIndianZipCode(pincode.value);"
+												onkeyup="this.value = this.value.replace(/[^0-9]/, '')"
+												maxlength="6"> <span id="error2" class="error"></span>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-4 mb-3">
+									<div class="form-group">
+										<div class="float-left w-100">
+											<label class="control-label" for="date">Country</label>
+											<!-- <input class="form-control" type="text" id="country"
+												name="address.country" placeholder="Country..." /> -->
+											<input type="text" class="form-control" id="country"
+												name="address.country" th:value="${user?.address?.country}"
+												placeholder="Country...">
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-8 mb-3">
+									<div class="form-group">
+										<div class="float-left w-100">
+											<label class="control-label" for="date">Address</label>
+											<!-- <textarea name="address.fullAddress" class="form-control"
+												rows="4" placeholder="Full Address here..."></textarea> -->
+								<textarea class="control-label" id="address.fullAddress"
+									name="address.fullAddress"
+									placeholder="Full Address here...."
+									th:text="${user?.address?.fullAddress}" rows="10"></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="mt-3">
+								<div class="submit_btn">
+									<button type="submit" class="btn btn-primary" id="submit-btn">Save</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<div th:fragment="customJs">
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script th:src="@{/./js/moment.js}"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+	<script th:src="@{/./js/user.js}"> </script>
+	
+	<script th:inline="javascript">
+/*<![CDATA[*/
+
+    var existingUser = /*[[${user}]]*/ 'default';
+    var currentUserRole = /*[[${currentUserRole}]]*/ 'default';
+    
+/*]]>*/
+</script>
+	
+</div>
