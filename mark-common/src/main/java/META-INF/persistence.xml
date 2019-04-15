@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="mark-common">
+		<class>com.common.models.MgDeviceInfo</class>
+		<class>com.common.models.MgFeedback</class>
+		<class>com.common.models.MgKey</class>
+		<class>com.common.models.MgLastParkedLoc</class>
+		<class>com.common.models.MgLastPassLoc</class>
+		<class>com.common.models.MgPermission</class>
+		<class>com.common.models.MgPushNotification</class>
+		<class>com.common.models.MgRolePermission</class>
+		<class>com.common.models.MgRole</class>
+		<class>com.common.models.MgServiceInfo</class>
+		<class>com.common.models.MgUser</class>
+		<class>com.common.models.MgVehicleInfo</class>
+		<class>com.common.models.AuthenticationToken</class>
+		<class>com.common.models.Notification</class>
+		<class>com.common.models.User</class>
+	</persistence-unit>
+</persistence>

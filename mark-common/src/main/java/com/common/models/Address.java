@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * @author Rohit Raj
- *
+ *	
  */
 @Data
 public class Address{
@@ -14,4 +14,5 @@ public class Address{
 	private String state;
 	private int pincode;
 	private String country;
+	
 }

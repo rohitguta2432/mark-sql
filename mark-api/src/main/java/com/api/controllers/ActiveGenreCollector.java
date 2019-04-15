@@ -5,13 +5,11 @@ import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.stereotype.Component;
 
+
 /**
- * @author RITESH SINGH
- * @since JDK 1.8
- * @version 1.0
+ * @author Rohit Raj
  *
  */
-
 @Component
 public class ActiveGenreCollector implements HealthIndicator {
 

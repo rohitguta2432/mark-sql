@@ -14,9 +14,7 @@ import com.web.MarkWebException;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author RITESH SINGH
- * @since JDK 1.8
- * @version 1.0
+ * @author orange
  *
  */
 @Slf4j
