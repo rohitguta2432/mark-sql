@@ -21,4 +21,5 @@ public class MarkAppApplication extends SpringBootServletInitializer{
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return builder.sources(MarkAppApplication.class);
 	}
+	
 }

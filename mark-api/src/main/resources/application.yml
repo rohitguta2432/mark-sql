@@ -41,12 +41,12 @@ spring:
       max-file-size: 100MB 
       max-request-size: 100MB    
   datasource:
-    url: jdbc:mysql://localhost:3306/magneti?createDatabaseIfNotExist=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/omni?createDatabaseIfNotExist=true&useSSL=false
     data-username: root
     data-password: root
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
-    hibernate.ddl-auto: create-drop
+    hibernate.ddl-auto: update
     generate-ddl: false
     show-sql: true
     properties:
